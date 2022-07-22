@@ -8,6 +8,8 @@ class OwnerSerializer(serializers.ModelSerializer):
         model = Owner
         fields = "__all__"
 
+    # fa un serializer in care implementezi creat-ul
+
 
 class OwnerFullNameSerializer(serializers.ModelSerializer):
     class Meta:

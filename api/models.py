@@ -36,13 +36,6 @@ class Species(models.Model):
         return self.species_name
 
 
-class Treat(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.name
-
-
 class PetManager(models.Manager):
     def get_fun_names(self):
         return self.filter(name__contains="rory")
@@ -74,9 +67,19 @@ class Pet(models.Model):
         return self.name
 
 
+class Treat(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    pet_treats = models.ManyToManyField(
+        Pet, through="PetTreat", through_fields=("treat", "pet")
+    )  # first element of tuple is the foreign_key of table PetTreat to the table where many_to_many relationship is defined
+
+    def __str__(self):
+        return self.name
+
+
 class PetTreat(models.Model):
-    pet_id = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    treat_id = models.ForeignKey(Treat, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    treat = models.ForeignKey(Treat, on_delete=models.CASCADE)
     db_table = "pet_treat"
 
     def __str__(self):

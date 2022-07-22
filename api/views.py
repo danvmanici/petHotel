@@ -40,7 +40,7 @@ class SpeciesViewSet(viewsets.ModelViewSet):
 
 
 class PetViewSet(viewsets.ModelViewSet):
-    queryset = Pet.objects.all()
+    queryset = Pet.objects.all().select_related("owner")
     serializer_class = PetSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["id", "name"]
@@ -61,3 +61,5 @@ class TreatViewSet(viewsets.ModelViewSet):
 class PetTreatViewSet(viewsets.ModelViewSet):
     queryset = PetTreat.objects.all()
     serializer_class = PetTreatSerializer
+    # cand faci relatia de many to many faci cu prefetch pentru treats
+    # formic
