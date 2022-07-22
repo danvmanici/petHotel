@@ -33,12 +33,17 @@ class PetSerializer(serializers.ModelSerializer):
 
 
 class TreatSerializer(serializers.ModelSerializer):
+    pet_treats = PetSerializer(read_only=True, many=True)
+
     class Meta:
         model = Treat
         fields = "__all__"
 
 
 class PetTreatSerializer(serializers.ModelSerializer):
+    pet = PetSerializer(read_only=True)
+    treat = TreatSerializer(read_only=True)
+
     class Meta:
         model = PetTreat
         fields = "__all__"
