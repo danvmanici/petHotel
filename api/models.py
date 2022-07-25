@@ -83,4 +83,4 @@ class PetTreat(models.Model):
     db_table = "pet_treat"
 
     def __str__(self):
-        return "pet: " + self.pet_id + " treat: " + self.treat_id
+        return " pet + treat"
