@@ -4,11 +4,13 @@ from .models import Owner, Species, Pet, Treat, PetTreat
 
 
 class OwnerSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        print(validated_data)
+        return Owner.objects.create(**validated_data)
+
     class Meta:
         model = Owner
         fields = "__all__"
-
-    # fa un serializer in care implementezi creat-ul
 
 
 class OwnerFullNameSerializer(serializers.ModelSerializer):
@@ -33,7 +35,7 @@ class PetSerializer(serializers.ModelSerializer):
 
 
 class TreatSerializer(serializers.ModelSerializer):
-    pet_treats = PetSerializer(read_only=True, many=True)
+    pet = PetSerializer(read_only=True)
 
     class Meta:
         model = Treat

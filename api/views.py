@@ -23,6 +23,11 @@ class OwnerViewSet(viewsets.ModelViewSet):
     search_fields = ["^last_name"]
     ordering = ["last_name"]
 
+    def post(self, request):
+        serializer = OwnerSerializer(data=request.data)
+        serializer.create()
+        return Response(serializer.data, status=201)
+
     @action(detail=False)
     def cat(self, request):
         return HttpResponse("We love cats!")
