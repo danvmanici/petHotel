@@ -69,9 +69,8 @@ class Pet(models.Model):
 
 class Treat(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    pet_treats = models.ManyToManyField(
-        Pet, through="PetTreat", through_fields=("treat", "pet")
-    )  # first element of tuple is the foreign_key of table PetTreat to the table where many_to_many relationship is defined
+    pet_treats = models.ManyToManyField(Pet, through="PetTreat")
+    # first element of tuple is the foreign_key of table PetTreat to the table where many_to_many relationship is defined
 
     def __str__(self):
         return self.name
@@ -83,4 +82,4 @@ class PetTreat(models.Model):
     db_table = "pet_treat"
 
     def __str__(self):
-        return " pet + treat"
+        return " pet_name: " + self.pet.name + " treat: " + self.treat.name
